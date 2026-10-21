@@ -14,3 +14,12 @@ body{padding-top:calc(70px + env(safe-area-inset-top));overflow-x:clip}
 .reset{min-height:44px;padding:8px 10px;font-size:11px;white-space:nowrap;background:#fff}.reset span{display:inline}
 header{height:62px}.types{z-index:4}#toy{mix-blend-mode:normal}
 }
+
+@media(max-width:768px),(pointer:coarse){
+body{padding-top:0;overflow-x:hidden}
+body>.controls{position:sticky;top:0;width:100%;z-index:2147483647;isolation:isolate;display:flex;visibility:visible;opacity:1}
+header{height:52px;padding:0 16px}main{padding:10px 14px 0}
+h1{font-size:25px;line-height:1.2;letter-spacing:-1px;margin:8px 0}
+.eyebrow{font-size:10px;letter-spacing:1px}.intro{font-size:11px;margin:0 0 10px}
+.types{margin:10px 0}.controls .reset span{display:inline}
+}

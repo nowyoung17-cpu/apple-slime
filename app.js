@@ -127,3 +127,9 @@ const mobileRendering=!!window.matchMedia?.('(max-width: 768px), (pointer: coars
 const renderScale=mobileRendering?0.5:1;
 surface.width=surface.height=Math.round(3200*renderScale);
 paint.scale(renderScale,renderScale);paint.translate(1300,1300);update();requestAnimationFrame(render);
+
+// The toolbar starts at the top in HTML, so mobile never depends on repositioning.
+const toolbar=document.querySelector('.controls'),desktopSlot=document.querySelector('#desktop-controls-slot');
+const toolbarMedia=window.matchMedia?.('(max-width: 768px), (pointer: coarse)');
+function placeToolbar(){if(toolbarMedia?.matches){document.body.prepend(toolbar)}else{desktopSlot?.append(toolbar)}}
+placeToolbar();toolbarMedia?.addEventListener?.('change',placeToolbar);
