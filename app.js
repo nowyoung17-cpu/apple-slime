@@ -120,4 +120,8 @@ paint.clearRect(-1300,-1300,3200,3200);if(!ready){requestAnimationFrame(render);
 for(const c of renderShards(dt)){const fine=stage>=10?Math.min(.14,.045+(stage-10)*.019):0;const d=Math.min(1,c.parent.current+fine),rx=c.s[0]-px*600,ry=c.s[1]-py*600,local=Math.exp(-(rx*rx+ry*ry)/23000)*amount;const tilt=d*(.6+Math.abs(c.angle)*.55),sx=1-d*.12,sy=1-tilt*.45;const moveX=(c.s[0]-300)*d*.045-rx*local*.10;const moveY=12*d+local*22+collapse*(110-(c.s[1]-300)*.48+c.fall*20);paint.save();paint.translate(c.s[0]+moveX,c.s[1]+moveY);paint.rotate(c.spin*d+collapse*c.angle*.35);paint.transform(sx,c.angle*d*.12,c.angle*d*.16,sy,0,0);paint.translate(-c.s[0],-c.s[1]);
 if(d>.01){paint.save();paint.translate(2,5);path(c.poly);paint.fillStyle=`rgba(${palettes[selected].shade},${d*.24})`;paint.fill();paint.restore();path(c.poly);paint.fillStyle=palettes[selected].shell;paint.fill()}
 paint.save();path(c.poly);paint.clip();paint.drawImage(texture,0,0);if(d>.01){paint.fillStyle=c.angle>0?`rgba(${palettes[selected].edge},${d*.13})`:`rgba(${palettes[selected].shade},${d*.19})`;paint.fillRect(0,0,600,600)}paint.restore();if(d>.01){path(c.poly);paint.strokeStyle=`rgba(${palettes[selected].edge},${d*.9})`;paint.lineWidth=2.2;paint.stroke()}paint.restore()}
-shadeDents(fracturePaint);paint=screenPaint;drawStretch(dt,fractureLayer,-150,900);requestAnimationFrame(render)}surface.width=surface.height=3200;paint.translate(1300,1300);update();requestAnimationFrame(render);
+shadeDents(fracturePaint);paint=screenPaint;drawStretch(dt,fractureLayer,-150,900);requestAnimationFrame(render)}// Keep the same world coordinates and CSS extent; reduce only mobile pixel density.
+const mobileRendering=!!window.matchMedia?.('(max-width: 768px), (pointer: coarse)').matches;
+const renderScale=mobileRendering?0.625:1;
+surface.width=surface.height=Math.round(3200*renderScale);
+paint.scale(renderScale,renderScale);paint.translate(1300,1300);update();requestAnimationFrame(render);
